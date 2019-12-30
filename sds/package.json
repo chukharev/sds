@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "@google-cloud/speech": "^1.0.1",
+    "aws-sdk": "^2.519.0",
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.2",
+    "express-ws": "^4.0.0",
+    "underscore": "^1.8.3"
+  }
+}

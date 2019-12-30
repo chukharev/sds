@@ -1,0 +1,65 @@
+<html>
+<head>
+<title>Transcript</title>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+</head>
+
+<style>
+  .c { color: blue; }
+  .u { color: red; }
+  .cur { background-color: yellow; }
+  li { padding: 5px; }
+</style>
+<body>
+
+<ol id="list">
+</ol>
+
+<script>
+  $(document).ready(function() {
+    var audioElement = document.createElement('audio');
+    audioElement.setAttribute('autoplay', 'autoplay');
+    var sourceElement = document.createElement('source');
+    sourceElement.setAttribute('type', 'audio/mp3');
+    audioElement.appendChild(sourceElement);
+    audioElement.onended = function() { playNext() }
+    audioElement.onerror = function() { playNext() }
+
+    function play(id) {
+      sourceElement.src='/sds/mp3/'+token+'/'+id;
+      audioElement.load();
+    }
+
+    function playNext() {
+      var next = $('.cur').next();
+      $('.cur').removeClass('cur');
+      next.click();
+    }
+
+    var token = document.location.search.substr(1);
+    var list = $('#list');
+    $.getJSON("/sds/"+token+"/transcript", function(data) {
+      for (var i=0; i<data.length; i++) {
+        var row = data[i];
+        if (i == 0 && !row[2]) continue;
+        $('<li></li>').addClass(row[1]).html(row[2]).data('id', row[0]+row[1]).appendTo(list);
+      }
+      $('li').click(function() {
+        var id = $(this).data('id');
+        $('.cur').removeClass('cur');
+        $(this).addClass('cur');
+        play(id);
+      });
+      $('li:first').click();
+    });
+
+
+  });
+
+</script>
+
+</body>
+</html>
