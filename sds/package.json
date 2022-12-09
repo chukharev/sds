@@ -4,7 +4,7 @@
     "aws-sdk": "^2.519.0",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.3",
-    "express": "^4.16.2",
+    "express": "^4.17.3",
     "express-ws": "^4.0.0",
     "underscore": "^1.8.3"
   }
